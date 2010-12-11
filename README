@@ -17,7 +17,7 @@ Create setting file.
     (upload [remote-path] [local-path])
   )
   
-  (ignore ".svn" ".git" ".gitignore")"
+  (ignore ".svn" ".git" ".gitignore")
 
 Run jar file.
 
