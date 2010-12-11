@@ -1,0 +1,36 @@
+# upftp
+
+FTP Client With Clojure
+
+## Usage
+
+Create setting file.
+
+  ;; example.clj
+
+  (ns upftp.setting (:use upftp))
+
+  (connect [server] [user] [password])
+
+  (tasks
+    (cd "/path/to/directory")
+    (upload [remote-path] [local-path])
+  )
+  
+  (ignore ".svn" ".git" ".gitignore")"
+
+Run jar file.
+
+  java -jar upftp.jar example.clj
+
+
+## Installation
+
+$ cd upftp
+$ lein uberjar
+
+## License
+
+Copyright (C) 2010 K. Kamitsukasa
+
+Distributed under the Eclipse Public License, the same as Clojure.
