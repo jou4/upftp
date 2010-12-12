@@ -8,7 +8,7 @@ Create setting file.
 
   ;; example.clj
 
-  (ns upftp.setting (:use upftp))
+  (ns upftp.run (:use upftp))
 
   (connect [server] [user] [password])
 
