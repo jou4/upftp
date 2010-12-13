@@ -46,7 +46,7 @@
                     {:command "upload"
                      :doc (str "Upload \"" l "\" to \"" r "\".")}))]
     (if (file/file? local)
-      (func-gen remote local)
+      [(func-gen remote local)]
       (let [files (file/enum-files local)
             base-dir (file/dir local)
             relative-path (fn [path] (string/replace-str base-dir "" path))

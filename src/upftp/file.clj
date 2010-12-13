@@ -57,7 +57,7 @@
 
 (defn file? [path]
   (let [f (File. path)]
-    (and (.isFile f) (re-find #"\*" (.getName f)))))
+    (and (.isFile f) (not (re-find #"\*" (.getName f))))))
 
 (defn file-name [path]
   (.getName (File. path)))
