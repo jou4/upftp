@@ -49,7 +49,7 @@
 (defn enum-files [path]
   (let [f (File. path)]
     (if (.isDirectory f)
-      (map #(.getAbsolutePath %) (match-files-in-dir ".*" f))
+      (map #(.getAbsolutePath %) (match-files-in-dir "*" f))
       (if (.exists f)
         [(.getAbsolutePath f)]
         (when (re-find #"\*" (.getName f))
