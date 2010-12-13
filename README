@@ -12,12 +12,12 @@ Create setting file.
 
   (connect [server] [user] [password])
 
+  (ignore ".svn" ".git" ".gitignore")
+
   (tasks
     (cd "/path/to/directory")
     (upload [remote-path] [local-path])
   )
-  
-  (ignore ".svn" ".git" ".gitignore")
 
 Run jar file.
 
