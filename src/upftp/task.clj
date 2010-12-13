@@ -51,9 +51,9 @@
             base-dir (file/dir local)
             relative-path (fn [path] (string/replace-str base-dir "" path))
             concat-path (fn [a b]
-                          (str (string/replace-re #"/$" "" a)
+                          (str (string/replace-re #"[/\\]$" "" a)
                                (when-not (empty? a) "/")
-                               (string/replace-re #"^/" "" b)))]
+                               (string/replace-re #"^[/\\]" "" b)))]
         (map #(func-gen (concat-path remote (relative-path %)) %) files)))))
 
 (defn task-download [remote local]
