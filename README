@@ -26,6 +26,8 @@ Run jar file.
 
 ## Installation
 
+You may have to ensure Leiningen(https://github.com/technomancy/leiningen) is installed before.
+
 $ cd upftp
 $ lein uberjar
 
