@@ -49,7 +49,7 @@
       [(func-gen remote local)]
       (let [files (file/enum-files local)
             base-dir (file/dir local)
-            relative-path (fn [path] (string/replace-str base-dir "" path))
+            relative-path (fn [path] (string/replace-re #"\\" "/" (string/replace-str base-dir "" path)))
             concat-path (fn [a b]
                           (str (string/replace-re #"[/\\]$" "" a)
                                (when-not (empty? a) "/")
