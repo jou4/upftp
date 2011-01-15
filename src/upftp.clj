@@ -3,7 +3,9 @@
   (:require [upftp.ftp :as ftp]
             [upftp.gui :as gui]
             [upftp.file :as file]
-            [upftp.task :as task]))
+            [upftp.task :as task]
+            [upftp.shell :as shell])
+  (:use [clojure.contrib.command-line :only (with-command-line)]))
 
 (def client (ftp/client))
 (def *tasks* (ref nil))
@@ -53,15 +55,21 @@
     @result))
 
 (defn -main [& args]
-  (if (< 0 (count args))
-    (do
-      (reload (first args))
-      (when (execute) (println "Fin.")))
-    (do
-      (gui/select-file
-       #(do
-          (reload %)
-          (when (execute) (gui/show-message "完了しました。")))))))
+  (with-command-line args "[-i] filename"
+                     [[interactive? i? "interactive" false]
+                      others]
+                     (if interactive?
+                       (shell/run)
+                       (if (< 0 (count others))
+                         (do
+                           (reload (first others))
+                           (when (execute) (println "Fin.")))
+                         (do
+                           (gui/select-file
+                            #(do
+                               (reload %)
+                               (when (execute) (gui/show-message "完了しました。")))))))))
+
 
 (defn -sample []
   (let [context (atom nil)

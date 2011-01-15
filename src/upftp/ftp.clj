@@ -17,8 +17,9 @@
 (defn login [client user pass]
   (.login client user pass))
 
-(defn list-names [client path]
-  (.listNames client path))
+(defn list-names
+  ([client] (.listNames client))
+  ([client path] (.listNames client path)))
 
 (defn list-files [client path]
   (.listFiles client path))

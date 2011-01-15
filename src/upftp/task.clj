@@ -10,6 +10,24 @@
    {:command "cd"
     :doc (str "Change working directory to \"" path "\".")})])
 
+(defn task-ls
+  ([]
+     [(with-meta
+       (fn [client]
+         (let [names (ftp/list-names client)]
+           (doseq [n names]
+             (println n))))
+       {:command "ls"
+        :doc (str "List names.")})])
+  ([path]
+     [(with-meta
+       (fn [client]
+         (let [names (ftp/list-names client path)]
+           (doseq [n names]
+             (println n))))
+       {:command "ls"
+        :doc (str "List names \"" path "\".")})]))
+
 (defn task-mkdir [path]
   [(with-meta
    (fn [client]
@@ -24,7 +42,7 @@
    {:command "rmdir"
     :doc (str "Remove directory named \"" path "\".")})])
 
-(defn taks-rm [path]
+(defn task-rm [path]
   [(with-meta
    (fn [client]
      (ftp/remove-file client path))
