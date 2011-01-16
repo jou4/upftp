@@ -18,7 +18,8 @@
 (defn execute [client input]
   (let [parts (string/split #"\s+" input)
         command (fn [c] (= c (first parts)))
-        tasks (cond (command "cd") (task/task-cd (nth parts 1))
+        tasks (cond (command "pwd") [#(println (ftp/print-working-directory %))]
+                    (command "cd") (task/task-cd (nth parts 1))
                     (command "ls") (if (< 1 (count parts))
                                      (task/task-ls (nth parts 1))
                                      (task/task-ls))

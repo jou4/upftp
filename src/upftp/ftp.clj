@@ -17,6 +17,9 @@
 (defn login [client user pass]
   (.login client user pass))
 
+(defn print-working-directory [client]
+  (.printWorkingDirectory client))
+
 (defn list-names
   ([client] (.listNames client))
   ([client path] (.listNames client path)))
