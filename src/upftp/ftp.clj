@@ -59,3 +59,6 @@
 
 (defn local-passive-mode [client]
   (.enterLocalPassiveMode client))
+
+(defn local-active-mode [client]
+  (.enterLocalActiveMode client))

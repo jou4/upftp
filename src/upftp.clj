@@ -11,18 +11,21 @@
 (def *tasks* (ref nil))
 
 
-(defmacro connect [server-name user pass]
-  `(try
-    (ftp/disconnect client)
-    (when-not (ftp/connect client ~server-name)
-      (throw (Exception. "unconnected.")))
-    (when-not (ftp/login client ~user ~pass)
-      (throw (Exception. "login failed.")))
-    (ftp/local-passive-mode client)
-    (println (str "Connected to \"" ~server-name "\"."))
-    (catch Exception e#
-      (.printStackTrace e#))))
-
+(defmacro connect
+  ([server-name user pass]
+     `(connect ~server-name ~user ~pass true))
+  ([server-name user pass passive]
+     `(try
+       (ftp/disconnect client)
+       (when-not (ftp/connect client ~server-name)
+         (throw (Exception. "unconnected.")))
+       (when-not (ftp/login client ~user ~pass)
+         (throw (Exception. "login failed.")))
+       (when ~passive
+         (ftp/local-passive-mode client))
+       (println (str "Connected to \"" ~server-name "\"."))
+       (catch Exception e#
+         (.printStackTrace e#)))))
 
 (defmacro tasks [& ts]
   `(dosync (ref-set *tasks* (apply concat [~@ts]))))

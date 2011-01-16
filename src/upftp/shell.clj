@@ -27,10 +27,11 @@
                     (command "mkdir") (task/task-mkdir (nth parts 1))
                     (command "mv") (task/task-rename (nth parts 1) (nth parts 2))
                     (command "upload") (task/task-upload (nth parts 1) (nth parts 2))
-                    (command "download") (task/task-download (nth parts 1) (nth parts 2)))]
+                    (command "download") (task/task-download (nth parts 1) (nth parts 2))
+                    (command "passive") [#(ftp/local-passive-mode %)]
+                    (command "active") [#(ftp/local-active-mode %)])]
     (try
      (doseq [t tasks]
-;       (println (str "[" (:command (meta t)) "]" (:doc (meta t))))
        (t client))
      (catch Exception e
        (.printStackTrace e)))))
