@@ -21,6 +21,9 @@
                                org.apache.commons.net.time
                                org.apache.commons.net.util
                                org.apache.commons.net.whois]]]
+  :dev-dependencies [[swank-clojure "1.2.1"]
+                     [vimclojure/server "2.2.0"]
+                     [org.clojars.autre/lein-vimclojure "1.0.0"]]
   :repositories {"clojars" "http://clojars.org/repo"
                  "apache-releases" "https://repository.apache.org/content/repositories/releases/"}
   :uberjar-name "upftp.jar")
