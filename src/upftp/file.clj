@@ -4,17 +4,7 @@
            [java.util.regex Pattern]))
 
 
-(def *ignore* (atom [".svn" ".git" ".gitignore"]))
-
-(defn include? [v coll]
-  (not (empty? (drop-while #(not= v %) coll))))
-
-(defn ignore-set [coll]
-  (reset! *ignore* coll))
-
-(defn ignore? [f]
-  (include? (.getName f) @*ignore*))
-
+;; regular expression
 
 (defn replace-aster [s]
   (string/replace-str "*" ".+" s))
@@ -31,6 +21,10 @@
                 (Pattern/compile (str "^" (replace-aster (escape-re pattern)) "$") Pattern/CASE_INSENSITIVE)
                 s)]
    (not (nil? result))))
+
+
+;; file
+(def ignore?)
 
 (defn match-file [pattern f]
   (let [fname (.getName f)]
@@ -67,4 +61,19 @@
     (if (.isDirectory f)
       (.getAbsolutePath f)
       (.getAbsolutePath (.getParentFile (File. path))))))
+
+
+;; ignore
+
+(def *ignore* (atom [".svn" ".git" ".gitignore"]))
+
+(defn include-ignore? [v coll]
+  (not (empty? (drop-while #(not (match % v)) coll))))
+
+(defn ignore-set [coll]
+  (reset! *ignore* coll))
+
+(defn ignore? [f]
+  (include-ignore? (.getName f) @*ignore*))
+
 
