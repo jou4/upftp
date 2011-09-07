@@ -3,11 +3,11 @@
            [java.io FileInputStream FileOutputStream])
   (:require [clojure.contrib.string :as string]))
 
-(defn client []
-  (FTPClient.))
+(defn client [] (FTPClient.))
 
 (defn connect [client server-name]
   (.connect client server-name)
+  (.setFileType client FTP/BINARY_FILE_TYPE)
   (FTPReply/isPositiveCompletion (.getReplyCode client)))
 
 (defn disconnect [client]
